@@ -23,7 +23,6 @@ namespace MainLibrary
             sw.WriteLine(DateTime.Now.ToString("dd.MM.yy HH:mm:ss")+" "+message);
             sw.Dispose();
             sw.Close();
-            //check
         }
     }
 }
