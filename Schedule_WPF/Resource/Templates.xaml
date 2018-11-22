@@ -7,7 +7,7 @@
     <RelativeSource x:Key="ParentContext" Mode="FindAncestor" AncestorType="{x:Type ItemsControl}" />
 
     <DataTemplate x:Key="MainMenuTemplate">
-        <Grid Background="{DynamicResource BackgoundColor}" >
+        <Grid >
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition MinHeight="100" />
@@ -37,17 +37,16 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="50" />
                 <RowDefinition />
-                <RowDefinition Height="50" />
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                <Button Content="&lt;" Command="{Binding Path=SelectionPageCommand}" CommandParameter="0" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" />
-                <TextBlock Text="Type:" Padding="10" />
+                <Button Content="&lt;" Command="{Binding Path=SelectionPageCommand}" CommandParameter="0" Width="50" Height="50" HorizontalAlignment="Left" Margin="0" />
+                <TextBlock Text="Справочник:" Padding="10" VerticalAlignment="Center" Margin="50, 0, 0, 0" />
                 <ComboBox Width="120" VerticalAlignment="Center" ItemsSource="{Binding Path=BookTypes}" DisplayMemberPath="Item1" SelectedValuePath="Item2" SelectedValue="{Binding Path=SelectedBookType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                <Button Content="Add" Command="{Binding AddBookCommand}" />
+                <Button Content="Добавить элемент" Width="120" Command="{Binding AddBookCommand}" />
             </StackPanel>
             
-            <ListBox Grid.Row="1" ItemsSource="{Binding Path=Books}" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox Grid.Row="1" Background="{x:Null}" ItemsSource="{Binding Path=Books}" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -56,7 +55,7 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock VerticalAlignment="Center" Text="{Binding Path=Name}" />
+                            <TextBlock VerticalAlignment="Center" Margin="20" Text="{Binding Path=Name}" />
 
                             <Button Content="X" Grid.Column="1" Width="50" Height="50" Command="{Binding RelativeSource={StaticResource ParentContext}, Path=DataContext.RemoveBookCommand}" CommandParameter="{Binding Path=.}" />
                         </Grid>
@@ -67,8 +66,155 @@
     </DataTemplate>
 
     <DataTemplate x:Key="ScheduleTemplate">
-        <Grid Background="Green">
-            <Button Content="&lt;" Command="{Binding Path=SelectionPageCommand}" CommandParameter="0" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" />
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <Button Content="&lt;" Command="{Binding Path=SelectionPageCommand}" CommandParameter="0" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" />
+
+                <TextBlock Text="Группа:" Padding="10" VerticalAlignment="Center" Margin="50, 0, 0, 0" />
+                <ComboBox Width="120" VerticalAlignment="Center" DisplayMemberPath="Item1" SelectedValuePath="Item2" />
+            </StackPanel>
+
+            <Grid Grid.Row="1" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <ListView>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Предмет">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=.}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Аудитория">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=.}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                
+                <ListView Grid.Column="1">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Предмет">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=.}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Аудитория">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=.}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <ListView Grid.Column="2">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Предмет">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=.}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Аудитория">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=.}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <ListView Grid.Row="1">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Предмет">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=.}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Аудитория">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=.}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <ListView Grid.Row="1" Grid.Column="1">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Предмет">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=.}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Аудитория">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=.}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <ListView Grid.Row="1" Grid.Column="2">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Предмет">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=.}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Аудитория">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=.}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
         </Grid>
     </DataTemplate>
 

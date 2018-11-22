@@ -6,12 +6,17 @@
         xmlns:local="clr-namespace:Schedule_WPF.Views"
         mc:Ignorable="d" 
         Title="AddBookView" Height="100" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-    <Grid>
+    <Grid Background="{DynamicResource MainBackBrush}">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <TextBox Text="{Binding Path=CaptionBook, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        <Button Grid.Row="1" Content="Create" Command="{Binding Path=CloseWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Значение:" VerticalAlignment="Center" Margin="20, 0, 0, 0" />
+        <TextBox Grid.Column="1" Text="{Binding Path=CaptionBook, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="8" />
+        <Button Grid.Row="1" Grid.ColumnSpan="2" Content="Создать" Command="{Binding Path=CloseWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" />
     </Grid>
 </Window>
