@@ -4,10 +4,86 @@
 
     <Binding x:Key="ContextBinding" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentControl}}" Path="DataContext" />
 
+    <RelativeSource x:Key="ParentContext" Mode="FindAncestor" AncestorType="{x:Type ItemsControl}" />
+
     <DataTemplate x:Key="MainMenuTemplate">
-        <Grid Background="{DynamicResource BackgoundColor}">
-            
+        <Grid Background="{DynamicResource BackgoundColor}" >
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition MinHeight="100" />
+                <RowDefinition MinHeight="100"/>
+                <RowDefinition MinHeight="100" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition MinWidth="200" />
+                <ColumnDefinition MinWidth="200" />
+                <ColumnDefinition MinWidth="200" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Content="Справочники" Command="{Binding Path=SelectionPageCommand}" CommandParameter="1" />
+            <Button Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" Content="Расписание" Command="{Binding Path=SelectionPageCommand}" CommandParameter="2"  />
+            <Button Grid.Row="2" Grid.Column="2" Content="Настройки" Command="{Binding Path=SelectionPageCommand}" CommandParameter="3"  />
+            <Button Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Content="Замены" Command="{Binding Path=SelectionPageCommand}" />
+            <Button Grid.Row="1" Grid.Column="3" Content="Вычитка" Command="{Binding Path=SelectionPageCommand}" />
+            <Button Grid.Row="2" Grid.Column="3" Content="Нагрузка" Command="{Binding Path=SelectionPageCommand}" />
         </Grid>
     </DataTemplate>
+
+    <DataTemplate x:Key="BookTemplate">
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <Button Content="&lt;" Command="{Binding Path=SelectionPageCommand}" CommandParameter="0" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" />
+                <TextBlock Text="Type:" Padding="10" />
+                <ComboBox Width="120" VerticalAlignment="Center" ItemsSource="{Binding Path=BookTypes}" DisplayMemberPath="Item1" SelectedValuePath="Item2" SelectedValue="{Binding Path=SelectedBookType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Button Content="Add" Command="{Binding AddBookCommand}" />
+            </StackPanel>
+            
+            <ListBox Grid.Row="1" ItemsSource="{Binding Path=Books}" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock VerticalAlignment="Center" Text="{Binding Path=Name}" />
+
+                            <Button Content="X" Grid.Column="1" Width="50" Height="50" Command="{Binding RelativeSource={StaticResource ParentContext}, Path=DataContext.RemoveBookCommand}" CommandParameter="{Binding Path=.}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ScheduleTemplate">
+        <Grid Background="Green">
+            <Button Content="&lt;" Command="{Binding Path=SelectionPageCommand}" CommandParameter="0" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ChangeScheduleTemplate">
+        <Grid Background="Green">
+            <Button Content="&lt;" Command="{Binding Path=SelectionPageCommand}" CommandParameter="0" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SettingsScheduleTemplate">
+        <Grid Background="Green">
+            <Button Content="&lt;" Command="{Binding Path=SelectionPageCommand}" CommandParameter="0" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" />
+        </Grid>
+    </DataTemplate>
+    
+    
     
 </ResourceDictionary>

@@ -57,10 +57,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\Command.cs" />
-    <Compile Include="Models\Enums.cs" />
-    <Compile Include="ModelViews\MenuViewModel.cs" />
+    <Compile Include="Common\Command.cs" />
+    <Compile Include="Common\Enums.cs" />
+    <Compile Include="Common\TwoValues.cs" />
+    <Compile Include="ModelViews\BaseViewModel.cs" />
     <Compile Include="ModelViews\ViewModel.cs" />
+    <Compile Include="Views\AddBookView.xaml.cs">
+      <DependentUpon>AddBookView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainContainer.xaml.cs">
       <DependentUpon>MainContainer.xaml</DependentUpon>
     </Compile>
@@ -104,6 +108,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resource\Theme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddBookView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

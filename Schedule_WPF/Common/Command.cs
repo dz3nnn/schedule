@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 
-namespace Schedule_WPF.Models
+namespace Schedule_WPF.Common
 {
     public class Command : ICommand
     {
@@ -17,7 +17,7 @@ namespace Schedule_WPF.Models
             remove { CommandManager.RequerySuggested -= value; }
         }
 
-        public Command(Action<object> execution, Func<object, bool> canExecution) {
+        public Command(Action<object> execution, Func<object, bool> canExecution = null) {
             this.execution = execution;
             this.canExecution = canExecution;
         }

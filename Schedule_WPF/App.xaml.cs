@@ -17,7 +17,7 @@ namespace Schedule_WPF
         protected override void OnStartup(StartupEventArgs e)
         {
             this.MainWindow = new MainContainer();
-            this.MainWindow.DataContext = new MenuViewModel();
+            this.MainWindow.DataContext = new BaseViewModel();
             this.MainWindow.Show();
             base.OnStartup(e);
         }

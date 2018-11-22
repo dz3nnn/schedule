@@ -4,14 +4,26 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MainContainer" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="MainContainer" Height="600" Width="800" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Grid>
-        <ContentControl >
+        <ContentControl Content="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}">
             <ContentControl.Style>
                 <Style TargetType="{x:Type ContentControl}">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Path=CurrentMenuItemType, UpdateSourceTrigger=PropertyChanged}" Value="MainMenu">
                             <Setter Property="ContentTemplate" Value="{StaticResource MainMenuTemplate}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=CurrentMenuItemType, UpdateSourceTrigger=PropertyChanged}" Value="Book">
+                            <Setter Property="ContentTemplate" Value="{StaticResource BookTemplate}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=CurrentMenuItemType, UpdateSourceTrigger=PropertyChanged}" Value="Schedule">
+                            <Setter Property="ContentTemplate" Value="{StaticResource ScheduleTemplate}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=CurrentMenuItemType, UpdateSourceTrigger=PropertyChanged}" Value="ChangeSchedule">
+                            <Setter Property="ContentTemplate" Value="{StaticResource ChangeScheduleTemplate}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=CurrentMenuItemType, UpdateSourceTrigger=PropertyChanged}" Value="SettingsSchedule">
+                            <Setter Property="ContentTemplate" Value="{StaticResource SettingsScheduleTemplate}" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
