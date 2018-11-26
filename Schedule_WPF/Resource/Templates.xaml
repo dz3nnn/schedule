@@ -5,6 +5,7 @@
     <Binding x:Key="ContextBinding" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentControl}}" Path="DataContext" />
 
     <RelativeSource x:Key="ParentContext" Mode="FindAncestor" AncestorType="{x:Type ItemsControl}" />
+    <RelativeSource x:Key="ListViewParent" Mode="FindAncestor" AncestorType="{x:Type ListView}" />
 
     <DataTemplate x:Key="MainMenuTemplate">
         <Grid >
@@ -75,7 +76,13 @@
                 <Button Content="&lt;" Command="{Binding Path=SelectionPageCommand}" CommandParameter="0" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" />
 
                 <TextBlock Text="Группа:" Padding="10" VerticalAlignment="Center" Margin="50, 0, 0, 0" />
-                <ComboBox Width="120" VerticalAlignment="Center" DisplayMemberPath="Item1" SelectedValuePath="Item2" />
+                <ComboBox Width="120" VerticalAlignment="Center" 
+              ItemsSource="{Binding Groups}"
+              DisplayMemberPath ="Name"
+              SelectedValue="{Binding Path=SelectedGroup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Content="Сформировать" Command="{Binding Path=CreateSchedule}"/>
+                <Button Content="Проверка" Command="{Binding Path=CheckSchedule}"/>
+                <Label Content="{Binding Path=UnallocatedHours}" ContentStringFormat="Не распределено часов: {0}"/>
             </StackPanel>
 
             <Grid Grid.Row="1" Margin="10">
@@ -89,41 +96,34 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <ListView>
+                <ListView ItemsSource="{Binding Path = ScheduleMonday, UpdateSourceTrigger=PropertyChanged}">
+                    <ListView.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding RelativeSource={StaticResource ParentContext}, Path=DataContext.EnterKeyCommand}" CommandParameter="{Binding Path=Id}"/>
+                        <KeyBinding Key="Delete" Command="{Binding Path=DeleteKeyCommand}" CommandParameter="{Binding RelativeSource={StaticResource ListViewParent}, Path=SelectedItem.Id}"/>
+                    </ListView.InputBindings>
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Предмет">
+                            <GridViewColumn>
+                                <GridViewColumnHeader>
+                                    <DataTemplate>
+                                        <TextBlock Text="Предмет" MinWidth="100"/>
+                                    </DataTemplate>
+                                </GridViewColumnHeader>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Path=.}" />
+                                        <TextBlock Text="{Binding Path = Subject}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Аудитория">
-                                <GridViewColumn.CellTemplate>
+                            <GridViewColumn>
+                                <GridViewColumnHeader>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Path=.}" />
+                                        <TextBlock Text="Аудитория" MinWidth="100"/>
                                     </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-                
-                <ListView Grid.Column="1">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Предмет">
+                                </GridViewColumnHeader>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Path=.}" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Аудитория">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Path=.}" />
+                                        <TextBlock Text="{Binding Path= Room}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -131,20 +131,24 @@
                     </ListView.View>
                 </ListView>
 
-                <ListView Grid.Column="2">
+                <ListView Grid.Column="1" ItemsSource="{Binding Path = ScheduleTuesday, UpdateSourceTrigger=PropertyChanged}">
+                    <ListView.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding RelativeSource={StaticResource ParentContext}, Path=DataContext.EnterKeyCommand}" CommandParameter="{Binding Path=Id}"/>
+                        <KeyBinding Key="Delete" Command="{Binding Path=DeleteKeyCommand}" CommandParameter="{Binding RelativeSource={StaticResource ListViewParent}, Path=SelectedItem.Id}"/>
+                    </ListView.InputBindings>
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Предмет">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Path=.}" />
+                                        <TextBlock Text="{Binding Path=Subject}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Header="Аудитория">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Path=.}" />
+                                        <TextBlock Text="{Binding Path=Room}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -152,20 +156,24 @@
                     </ListView.View>
                 </ListView>
 
-                <ListView Grid.Row="1">
+                <ListView Grid.Column="2" ItemsSource="{Binding Path = ScheduleWednesday, UpdateSourceTrigger=PropertyChanged}">
+                    <ListView.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding RelativeSource={StaticResource ParentContext}, Path=DataContext.EnterKeyCommand}" CommandParameter="{Binding Path=Id}"/>
+                        <KeyBinding Key="Delete" Command="{Binding Path=DeleteKeyCommand}" CommandParameter="{Binding RelativeSource={StaticResource ListViewParent}, Path=SelectedItem.Id}"/>
+                    </ListView.InputBindings>
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Предмет">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Path=.}" />
+                                        <TextBlock Text="{Binding Path=Subject}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Header="Аудитория">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Path=.}" />
+                                        <TextBlock Text="{Binding Path=Room}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -173,20 +181,24 @@
                     </ListView.View>
                 </ListView>
 
-                <ListView Grid.Row="1" Grid.Column="1">
+                <ListView Grid.Row="1" ItemsSource="{Binding Path = ScheduleThursday, UpdateSourceTrigger=PropertyChanged}">
+                    <ListView.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding RelativeSource={StaticResource ParentContext}, Path=DataContext.EnterKeyCommand}" CommandParameter="{Binding Path=Id}"/>
+                        <KeyBinding Key="Delete" Command="{Binding Path=DeleteKeyCommand}" CommandParameter="{Binding RelativeSource={StaticResource ListViewParent}, Path=SelectedItem.Id}"/>
+                    </ListView.InputBindings>
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Предмет">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Path=.}" />
+                                        <TextBlock Text="{Binding Path=Subject}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Header="Аудитория">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Path=.}" />
+                                        <TextBlock Text="{Binding Path=Room}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -194,20 +206,49 @@
                     </ListView.View>
                 </ListView>
 
-                <ListView Grid.Row="1" Grid.Column="2">
+                <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Path = ScheduleFriday, UpdateSourceTrigger=PropertyChanged}">
+                    <ListView.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding RelativeSource={StaticResource ParentContext}, Path=DataContext.EnterKeyCommand}" CommandParameter="{Binding Path=Id}"/>
+                        <KeyBinding Key="Delete" Command="{Binding Path=DeleteKeyCommand}" CommandParameter="{Binding RelativeSource={StaticResource ListViewParent}, Path=SelectedItem.Id}"/>
+                    </ListView.InputBindings>
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Предмет">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Path=.}" />
+                                        <TextBlock Text="{Binding Path=Subject}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Header="Аудитория">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Path=.}" />
+                                        <TextBlock Text="{Binding Path=Room}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <ListView Grid.Row="1" Grid.Column="2" ItemsSource="{Binding Path = ScheduleSaturday, UpdateSourceTrigger=PropertyChanged}">
+                    <ListView.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding RelativeSource={StaticResource ParentContext}, Path=DataContext.EnterKeyCommand}" CommandParameter="{Binding Path=Id}"/>
+                        <KeyBinding Key="Delete" Command="{Binding Path=DeleteKeyCommand}" CommandParameter="{Binding RelativeSource={StaticResource ListViewParent}, Path=SelectedItem.Id}"/>
+                    </ListView.InputBindings>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Предмет">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=Subject}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Аудитория">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=Room}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>

@@ -98,11 +98,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\MainLibrary\MainLibrary.csproj">
       <Project>{ecdf385f-d25e-429c-8f3c-db51e2616ca8}</Project>
       <Name>MainLibrary</Name>

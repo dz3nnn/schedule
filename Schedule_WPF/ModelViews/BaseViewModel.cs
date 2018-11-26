@@ -49,13 +49,94 @@ namespace Schedule_WPF.ModelViews
             get {
                 IEnumerable<BookItem> result;
                 BookTypes type = (BookTypes)SelectedBookType;
-                //result = BookLayer.GetBookItems(type);
-                result = new BookItem[] {
-                    new BookItem { Id = 1, Name = "per" }
-                };
+                result = BookLayer.GetBookItems(type);
                 return result;
             }
         }
+
+        public IEnumerable<BookItem> Groups
+        {
+            get
+            {
+                IEnumerable<BookItem> result;
+                result = BookLayer.GetBookItems(BookController.BookTypes.groups);
+                return result;
+            }
+        }
+        #endregion
+
+        #region Schedule
+
+        private ScheduleController _scheduleLayer;
+        protected ScheduleController ScheduleLayer
+        {
+            get { return _scheduleLayer ?? (_scheduleLayer = new ScheduleController()); }
+        }
+
+        private BookItem _selectedGroup = new BookItem();
+        public BookItem SelectedGroup
+        {
+            get { return _selectedGroup; }
+            set { _selectedGroup = value;
+                RefreshAllTables();
+                this.SendPropertyChanged(nameof(SelectedGroup)); }
+        }
+
+        public IEnumerable<Schedule> ScheduleMonday
+        {
+            get
+            {
+                IEnumerable<Schedule> result;
+                result = ScheduleLayer.GetScheduleForGroupByDay(SelectedGroup.Name,1);
+                return result;
+            }
+        }
+        public IEnumerable<Schedule> ScheduleTuesday
+        {
+            get
+            {
+                IEnumerable<Schedule> result;
+                result = ScheduleLayer.GetScheduleForGroupByDay(SelectedGroup.Name, 2);
+                return result;
+            }
+        }
+        public IEnumerable<Schedule> ScheduleWednesday
+        {
+            get
+            {
+                IEnumerable<Schedule> result;
+                result = ScheduleLayer.GetScheduleForGroupByDay(SelectedGroup.Name, 3);
+                return result;
+            }
+        }
+        public IEnumerable<Schedule> ScheduleThursday
+        {
+            get
+            {
+                IEnumerable<Schedule> result;
+                result = ScheduleLayer.GetScheduleForGroupByDay(SelectedGroup.Name, 4);
+                return result;
+            }
+        }
+        public IEnumerable<Schedule> ScheduleFriday
+        {
+            get
+            {
+                IEnumerable<Schedule> result;
+                result = ScheduleLayer.GetScheduleForGroupByDay(SelectedGroup.Name, 5);
+                return result;
+            }
+        }
+        public IEnumerable<Schedule> ScheduleSaturday
+        {
+            get
+            {
+                IEnumerable<Schedule> result;
+                result = ScheduleLayer.GetScheduleForGroupByDay(SelectedGroup.Name, 6);
+                return result;
+            }
+        }
+
         #endregion
         #endregion
 
@@ -72,7 +153,6 @@ namespace Schedule_WPF.ModelViews
             }
         }
         #endregion
-
         #region Book
         private string _captionBook;
         public string CaptionBook {
@@ -100,8 +180,8 @@ namespace Schedule_WPF.ModelViews
                     AddBookView addView = new AddBookView();
                     addView.DataContext = this;
                     if (addView.ShowDialog() == true) {
-                        //BookLayer.AddBookItem(new BookItem { Name = CaptionBook }, ((BookTypes)SelectedBookType).ToString());
-                        MessageBox.Show(CaptionBook);
+                        BookLayer.AddBookItem(new BookItem { Name = CaptionBook }, (BookTypes)SelectedBookType);
+                        this.SendPropertyChanged(nameof(Books));
                     }
                 }));
             }
@@ -121,10 +201,105 @@ namespace Schedule_WPF.ModelViews
 
 
         #endregion
+        #region Schedule
+
+        private int _unallocatedHours;
+        public int UnallocatedHours
+        {
+            get { return _unallocatedHours; }
+            set { _unallocatedHours = value; this.SendPropertyChanged(nameof(UnallocatedHours)); }
+        }
+
+        private Command _createSchedule;
+        public Command CreateSchedule
+        {
+            get
+            {
+                return _createSchedule ?? (_createSchedule = new Command(obj =>
+                {
+                    ScheduleLayer.CreateScheduleForGroup(SelectedGroup.Name);
+                    RefreshAllTables();
+                }));
+            }
+        }
+
+        private Command _enterKeyCommand;
+        public Command EnterKeyCommand
+        {
+            get
+            {
+                return _enterKeyCommand ?? (_enterKeyCommand = new Command(obj =>
+                {
+                    RefreshAllTables();
+                }));
+            }
+        }
+
+        private Command _deleteKeyCommand;
+        public Command DeleteKeyCommand
+        {
+            get
+            {
+                return _deleteKeyCommand ?? (_deleteKeyCommand = new Command(obj =>
+                {
+                    int value = (int)obj;
+                    ScheduleLayer.DeleteById(value);
+                    RefreshAllTables();
+                }, obj => obj != null));
+            }
+        }
+
+        private Command _checkSchedule;
+        public Command CheckSchedule
+        {
+            get
+            {
+                return _checkSchedule ?? (_checkSchedule = new Command(obj =>
+                {
+                    var unsettings = ScheduleLayer.GetUnallocatedSubjects(SelectedGroup.Name);
+                    if (unsettings != null)
+                    {
+                        string show = null;
+                        foreach (Settings set in unsettings)
+                        {
+                            show += string.Format("{0}({1})\n", set.Subject, set.Hours);
+                        }
+                        MessageBox.Show(show);
+                    }
+                    else
+                        MessageBox.Show("Все сходится.");
+                }));
+            }
+        }
+        #endregion
         #endregion
 
         #region Helps
-
+        private void RefreshAllTables()
+        {
+            this.SendPropertyChanged(nameof(ScheduleMonday));
+            this.SendPropertyChanged(nameof(ScheduleTuesday));
+            this.SendPropertyChanged(nameof(ScheduleWednesday));
+            this.SendPropertyChanged(nameof(ScheduleThursday));
+            this.SendPropertyChanged(nameof(ScheduleFriday));
+            this.SendPropertyChanged(nameof(ScheduleSaturday));
+            GetUnAllocatedHours();
+            this.SendPropertyChanged(nameof(UnallocatedHours));
+        }
+        private void GetUnAllocatedHours()
+        {
+            int result = 0;
+            var unsettings = ScheduleLayer.GetUnallocatedSubjects(SelectedGroup.Name);
+            if (unsettings != null)
+            {
+                foreach (Settings set in unsettings)
+                {
+                    result += set.Hours;
+                }
+            }
+            UnallocatedHours = result;
+            this.SendPropertyChanged(nameof(UnallocatedHours));
+        }
         #endregion
     }
 }

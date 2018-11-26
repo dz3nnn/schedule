@@ -292,5 +292,24 @@ namespace MainLibrary
             }
             return null;
         }
+
+        public IEnumerable<Schedule> GetScheduleForGroupByDay(string group, int day)
+        {
+            try
+            {
+                string sql = string.Format("SELECT * FROM schedule WHERE GroupName = @GroupName AND WeekDay = @WeekDay", group);
+                using (IDbConnection con = new MySqlConnection(ConfigurationManager.ConnectionStrings["con"].ConnectionString))
+                {
+                    con.Open();
+                    var result = con.Query<Schedule>(sql, new Schedule { GroupName = group , WeekDay = day});
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.WriteLog(ex.Message);
+            }
+            return null;
+        }
     }
 }

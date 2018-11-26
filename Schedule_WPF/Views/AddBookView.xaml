@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Schedule_WPF.Views"
         mc:Ignorable="d" 
-        Title="AddBookView" Height="100" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Добавление в справочник" Height="100" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Background="{DynamicResource MainBackBrush}">
         <Grid.RowDefinitions>
             <RowDefinition />

@@ -71,11 +71,11 @@ namespace MainLibrary
         /// </summary>
         /// <param name="bi">Добавляемый элемент</param>
         /// <param name="btype">Тип справочника</param>
-        public void AddBookItem(BookItem bi,string btype)
+        public void AddBookItem(BookItem bi,BookTypes bk)
         {
             try
             {
-                string sql = string.Format(@"INSERT INTO {0} (Name) VALUES (@Name)",btype);
+                string sql = string.Format(@"INSERT INTO {0} (Name) VALUES (@Name)",bk.ToString());
                 using (IDbConnection con = new MySqlConnection(ConfigurationManager.ConnectionStrings["con"].ConnectionString))
                 {
                     con.Open();

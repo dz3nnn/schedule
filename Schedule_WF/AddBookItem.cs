@@ -29,7 +29,7 @@ namespace Schedule_WF
 
         private void button1_Click(object sender, EventArgs e)
         {
-            bc.AddBookItem(new BookItem {Name = textBox1.Text },this.BookType);
+            //bc.AddBookItem(new BookItem {Name = textBox1.Text },this.BookType);
             this.Close();
         }
 
