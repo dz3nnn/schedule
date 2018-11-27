@@ -88,6 +88,7 @@ namespace Schedule_WPF.ModelViews
             {
                 IEnumerable<Schedule> result;
                 result = ScheduleLayer.GetScheduleForGroupByDay(SelectedGroup.Name,1);
+                result = FillEmpty(result,1);
                 return result;
             }
         }
@@ -97,6 +98,7 @@ namespace Schedule_WPF.ModelViews
             {
                 IEnumerable<Schedule> result;
                 result = ScheduleLayer.GetScheduleForGroupByDay(SelectedGroup.Name, 2);
+                result = FillEmpty(result,2);
                 return result;
             }
         }
@@ -106,6 +108,7 @@ namespace Schedule_WPF.ModelViews
             {
                 IEnumerable<Schedule> result;
                 result = ScheduleLayer.GetScheduleForGroupByDay(SelectedGroup.Name, 3);
+                result = FillEmpty(result,3);
                 return result;
             }
         }
@@ -115,6 +118,7 @@ namespace Schedule_WPF.ModelViews
             {
                 IEnumerable<Schedule> result;
                 result = ScheduleLayer.GetScheduleForGroupByDay(SelectedGroup.Name, 4);
+                result = FillEmpty(result,4);
                 return result;
             }
         }
@@ -124,6 +128,7 @@ namespace Schedule_WPF.ModelViews
             {
                 IEnumerable<Schedule> result;
                 result = ScheduleLayer.GetScheduleForGroupByDay(SelectedGroup.Name, 5);
+                result = FillEmpty(result,5);
                 return result;
             }
         }
@@ -133,7 +138,19 @@ namespace Schedule_WPF.ModelViews
             {
                 IEnumerable<Schedule> result;
                 result = ScheduleLayer.GetScheduleForGroupByDay(SelectedGroup.Name, 6);
+                result = FillEmpty(result,6);
                 return result;
+            }
+        }
+
+        private Settings _addingSettings;
+        public Settings AddingSettings
+        {
+            get { return _addingSettings; }
+            set
+            {
+                _addingSettings = value;
+                this.SendPropertyChanged(nameof(AddingSettings));
             }
         }
 
@@ -203,11 +220,28 @@ namespace Schedule_WPF.ModelViews
         #endregion
         #region Schedule
 
+
+        private Schedule _addingSchedule;
+        public Schedule AddingSchedule
+        {
+            get { return _addingSchedule ?? (_addingSchedule = new Schedule()); }
+            set { _addingSchedule = value; this.SendPropertyChanged(nameof(AddingSchedule)); }
+        }
+
         private int _unallocatedHours;
         public int UnallocatedHours
         {
             get { return _unallocatedHours; }
             set { _unallocatedHours = value; this.SendPropertyChanged(nameof(UnallocatedHours)); }
+        }
+
+        
+
+        private IEnumerable<Settings> _unallocatedSchedule;
+        public IEnumerable<Settings> UnallocatedSchedule
+        {
+            get { return _unallocatedSchedule; }
+            set { _unallocatedSchedule = value; this.SendPropertyChanged(nameof(UnallocatedSchedule)); }
         }
 
         private Command _createSchedule;
@@ -230,8 +264,54 @@ namespace Schedule_WPF.ModelViews
             {
                 return _enterKeyCommand ?? (_enterKeyCommand = new Command(obj =>
                 {
-                    RefreshAllTables();
-                }));
+                    Schedule schedule = (Schedule)obj;
+                    AddingSchedule = schedule;
+                    AddScheduleView addView = new AddScheduleView();
+                    addView.DataContext = this;
+                    GetUnAllocatedSchedule(schedule);
+                    if (addView.ShowDialog() == true)
+                    {
+                        RefreshAllTables();
+                    }
+                }, obj => obj != null));
+            }
+        }
+
+        private Command _enterAddingKeyCommand;
+        public Command EnterAddingKeyCommand
+        {
+            get
+            {
+                return _enterAddingKeyCommand ?? (_enterAddingKeyCommand = new Command(obj =>
+                {
+                Settings sett = AddingSettings;
+                foreach (Settings set in UnallocatedSchedule)
+                {
+                    if (set.Subject == sett.Subject)
+                    {
+                        ScheduleLayer.InputSchedule(new Schedule
+                        {
+                            GroupName = set.GroupName,
+                            Lesson = AddingSchedule.Lesson,
+                            Room = set.Room,
+                            Subject = set.Subject,
+                            Teacher1 = set.Teacher1,
+                            Teacher2 = set.Teacher2,
+                            WeekDay = AddingSchedule.WeekDay
+                        });
+                    }
+                }
+                if (sett.Subject == "Обед")
+                    ScheduleLayer.InputSchedule(new Schedule
+                    {
+                        GroupName = AddingSchedule.GroupName,
+                        Subject = "Обед",
+                        Lesson = AddingSchedule.Lesson,
+                        WeekDay = AddingSchedule.WeekDay
+                    });
+                RefreshAllTables();
+                    CloseWindowCommand.Execute(obj);
+                }, obj => obj != null));
             }
         }
 
@@ -299,6 +379,43 @@ namespace Schedule_WPF.ModelViews
             }
             UnallocatedHours = result;
             this.SendPropertyChanged(nameof(UnallocatedHours));
+        }
+        private IEnumerable<Schedule> FillEmpty(IEnumerable<Schedule> schedules, int day)
+        {
+            List<Schedule> newresult = new List<Schedule>();
+            for (int i = 1; i <= 11; i++)
+            {
+                bool find = false;
+                foreach (Schedule schedule in schedules)
+                {
+                    if (schedule.Lesson == i)
+                    {
+                        find = true;
+                        newresult.Add(schedule);
+                    }
+                }
+                if (!find)
+                    newresult.Add(new Schedule {Lesson = i, WeekDay =day ,GroupName = SelectedGroup.Name});
+            }
+            return newresult;
+        }
+        private void GetUnAllocatedSchedule(Schedule schedule)
+        {
+            var unloc = ScheduleLayer.GetUnallocatedSubjects(schedule.GroupName);
+            List<Settings> result = new List<Settings>();
+            if (unloc != null)
+            {
+                foreach (Settings set in unloc)
+                {
+                    if (ScheduleLayer.CanInputHere(new Schedule { Lesson = schedule.Lesson, WeekDay = schedule.WeekDay, Room = set.Room, Teacher1 = set.Teacher1, GroupName = set.GroupName }))
+                    {
+                        result.Add(set);
+                    }
+                }
+            }
+            result.Add(new Settings { Subject = "Обед" });
+            UnallocatedSchedule = result;
+            this.SendPropertyChanged(nameof(UnallocatedSchedule));
         }
         #endregion
     }
