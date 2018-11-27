@@ -48,7 +48,7 @@
                 <Button Content="Добавить элемент" Width="120" Command="{Binding AddBookCommand}" />
             </StackPanel>
             
-            <ListBox Grid.Row="1" Background="{x:Null}" ItemsSource="{Binding Path=Books}" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox Grid.Row="1" Background="{x:Null}" ItemsSource="{Binding Path=Books, IsAsync=True}" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -78,7 +78,7 @@
 
                 <TextBlock Text="Группа:" Padding="10" VerticalAlignment="Center" Margin="50, 0, 0, 0" />
                 <ComboBox Width="120" VerticalAlignment="Center" 
-              ItemsSource="{Binding Groups}"
+              ItemsSource="{Binding Groups, IsAsync=True}"
               DisplayMemberPath ="Name"
               SelectedValue="{Binding Path=SelectedGroup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <Button Content="Сформировать" Command="{Binding Path=CreateSchedule}"/>
@@ -97,7 +97,7 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <ListView ItemsSource="{Binding Path = ScheduleMonday, UpdateSourceTrigger=PropertyChanged}">
+                <ListView ItemsSource="{Binding Path = ScheduleMonday, UpdateSourceTrigger=PropertyChanged, IsAsync=True}">
                     <ListView.InputBindings>
                         <KeyBinding Key="Enter" Command="{Binding Path=EnterKeyCommand}" CommandParameter="{Binding RelativeSource={StaticResource ListViewParent}, Path=SelectedItem}"/>
                         <KeyBinding Key="Delete" Command="{Binding Path=DeleteKeyCommand}" CommandParameter="{Binding RelativeSource={StaticResource ListViewParent}, Path=SelectedItem.Id}"/>
@@ -132,7 +132,7 @@
                     </ListView.View>
                 </ListView>
 
-                <ListView Grid.Column="1" ItemsSource="{Binding Path = ScheduleTuesday, UpdateSourceTrigger=PropertyChanged}">
+                <ListView Grid.Column="1" ItemsSource="{Binding Path = ScheduleTuesday, UpdateSourceTrigger=PropertyChanged, IsAsync=True}">
                     <ListView.InputBindings>
                         <KeyBinding Key="Enter" Command="{Binding Path=EnterKeyCommand}" CommandParameter="{Binding RelativeSource={StaticResource ListViewParent}, Path=SelectedItem}"/>
                         <KeyBinding Key="Delete" Command="{Binding Path=DeleteKeyCommand}" CommandParameter="{Binding RelativeSource={StaticResource ListViewParent}, Path=SelectedItem.Id}"/>
@@ -157,7 +157,7 @@
                     </ListView.View>
                 </ListView>
 
-                <ListView Grid.Column="2" ItemsSource="{Binding Path = ScheduleWednesday, UpdateSourceTrigger=PropertyChanged}">
+                <ListView Grid.Column="2" ItemsSource="{Binding Path = ScheduleWednesday, UpdateSourceTrigger=PropertyChanged, IsAsync=True}">
                     <ListView.InputBindings>
                         <KeyBinding Key="Enter" Command="{Binding Path=EnterKeyCommand}" CommandParameter="{Binding RelativeSource={StaticResource ListViewParent}, Path=SelectedItem}"/>
                         <KeyBinding Key="Delete" Command="{Binding Path=DeleteKeyCommand}" CommandParameter="{Binding RelativeSource={StaticResource ListViewParent}, Path=SelectedItem.Id}"/>
@@ -182,7 +182,7 @@
                     </ListView.View>
                 </ListView>
 
-                <ListView Grid.Row="1" ItemsSource="{Binding Path = ScheduleThursday, UpdateSourceTrigger=PropertyChanged}">
+                <ListView Grid.Row="1" ItemsSource="{Binding Path = ScheduleThursday, UpdateSourceTrigger=PropertyChanged, IsAsync=True}">
                     <ListView.InputBindings>
                         <KeyBinding Key="Enter" Command="{Binding Path=EnterKeyCommand}" CommandParameter="{Binding RelativeSource={StaticResource ListViewParent}, Path=SelectedItem}"/>
                         <KeyBinding Key="Delete" Command="{Binding Path=DeleteKeyCommand}" CommandParameter="{Binding RelativeSource={StaticResource ListViewParent}, Path=SelectedItem.Id}"/>
@@ -207,7 +207,7 @@
                     </ListView.View>
                 </ListView>
 
-                <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Path = ScheduleFriday, UpdateSourceTrigger=PropertyChanged}">
+                <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Path = ScheduleFriday, UpdateSourceTrigger=PropertyChanged, IsAsync=True}">
                     <ListView.InputBindings>
                         <KeyBinding Key="Enter" Command="{Binding Path=EnterKeyCommand}" CommandParameter="{Binding RelativeSource={StaticResource ListViewParent}, Path=SelectedItem}"/>
                         <KeyBinding Key="Delete" Command="{Binding Path=DeleteKeyCommand}" CommandParameter="{Binding RelativeSource={StaticResource ListViewParent}, Path=SelectedItem.Id}"/>
@@ -232,7 +232,7 @@
                     </ListView.View>
                 </ListView>
 
-                <ListView Grid.Row="1" Grid.Column="2" ItemsSource="{Binding Path = ScheduleSaturday, UpdateSourceTrigger=PropertyChanged}">
+                <ListView Grid.Row="1" Grid.Column="2" ItemsSource="{Binding Path = ScheduleSaturday, UpdateSourceTrigger=PropertyChanged, IsAsync=True}">
                     <ListView.InputBindings>
                         <KeyBinding Key="Enter" Command="{Binding Path=EnterKeyCommand}" CommandParameter="{Binding RelativeSource={StaticResource ListViewParent}, Path=SelectedItem}"/>
                         <KeyBinding Key="Delete" Command="{Binding Path=DeleteKeyCommand}" CommandParameter="{Binding RelativeSource={StaticResource ListViewParent}, Path=SelectedItem.Id}"/>
@@ -267,8 +267,119 @@
     </DataTemplate>
 
     <DataTemplate x:Key="SettingsScheduleTemplate">
-        <Grid Background="Green">
-            <Button Content="&lt;" Command="{Binding Path=SelectionPageCommand}" CommandParameter="0" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" />
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="0">
+                <Button Content="&lt;" Command="{Binding Path=SelectionPageCommand}" CommandParameter="0" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" />
+                <TextBlock Text="Группа:" Padding="10" VerticalAlignment="Center" Margin="50, 0, 0, 0" />
+                <ComboBox Width="120" VerticalAlignment="Center" 
+              ItemsSource="{Binding Groups, IsAsync=True}"
+              DisplayMemberPath ="Name"
+              SelectedValue="{Binding Path=SelectedGroup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Content="Добавить" Width="120" Command="{Binding AddSettingsCommand}"/>
+            </StackPanel>
+            <ListView Grid.Row="1" ItemsSource="{Binding Path = AllSettings, UpdateSourceTrigger=PropertyChanged, IsAsync=True}">
+                <ListView.InputBindings>
+                    <KeyBinding Key="Delete" Command="{Binding Path=DeleteSettingsKeyCommand}" CommandParameter="{Binding RelativeSource={StaticResource ListViewParent}, Path=SelectedItem.Id}"/>
+                </ListView.InputBindings>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn>
+                            <GridViewColumnHeader>
+                                <DataTemplate>
+                                    <TextBlock Text="Предмет" MinWidth="100"/>
+                                </DataTemplate>
+                            </GridViewColumnHeader>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path = Subject}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn>
+                            <GridViewColumnHeader>
+                                <DataTemplate>
+                                    <TextBlock Text="Преподаватель 1" MinWidth="100"/>
+                                </DataTemplate>
+                            </GridViewColumnHeader>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path = Teacher1}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn>
+                            <GridViewColumnHeader>
+                                <DataTemplate>
+                                    <TextBlock Text="Преподаватель 2" MinWidth="100"/>
+                                </DataTemplate>
+                            </GridViewColumnHeader>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path = Teacher2}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn>
+                            <GridViewColumnHeader>
+                                <DataTemplate>
+                                    <TextBlock Text="Аудитория" MinWidth="100"/>
+                                </DataTemplate>
+                            </GridViewColumnHeader>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path = Room}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn>
+                            <GridViewColumnHeader>
+                                <DataTemplate>
+                                    <TextBlock Text="Часы (нед.)" MinWidth="100"/>
+                                </DataTemplate>
+                            </GridViewColumnHeader>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path = Hours}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn>
+                            <GridViewColumnHeader>
+                                <DataTemplate>
+                                    <TextBlock Text="Часы (всего)" MinWidth="100"/>
+                                </DataTemplate>
+                            </GridViewColumnHeader>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path = HoursAll}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn>
+                            <GridViewColumnHeader>
+                                <DataTemplate>
+                                    <TextBlock Text="Часы (в день)" MinWidth="100"/>
+                                </DataTemplate>
+                            </GridViewColumnHeader>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path = HoursDay}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </Grid>
     </DataTemplate>
     

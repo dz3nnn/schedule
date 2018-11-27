@@ -155,6 +155,24 @@ namespace Schedule_WPF.ModelViews
         }
 
         #endregion
+
+        #region Settings
+        private SettingsController _settingsLayer;
+        protected SettingsController SettingsLayer
+        {
+            get { return _settingsLayer ?? (_settingsLayer = new SettingsController()); }
+        }
+
+        public IEnumerable<Settings> AllSettings
+        {
+            get
+            {
+                IEnumerable<Settings> result;
+                result = SettingsLayer.GetSettingsForGroup(SelectedGroup.Name);
+                return result;
+            }
+        }
+        #endregion
         #endregion
 
         #region Commands
@@ -352,6 +370,36 @@ namespace Schedule_WPF.ModelViews
             }
         }
         #endregion
+
+        #region Settings
+        private Command _addSettingsCommand;
+        public Command AddSettingsCommand
+        {
+            get
+            {
+                return _addSettingsCommand ?? (_addSettingsCommand = new Command(obj =>
+                {
+                    // добавление по окну
+                }));
+            }
+        }
+
+        private Command _deleteSettingsKeyCommand;
+        public Command DeleteSettingsKeyCommand
+        {
+            get
+            {
+                return _deleteSettingsKeyCommand ?? (_deleteSettingsKeyCommand = new Command(obj =>
+                {
+                    int setid = (int)obj;
+                    SettingsLayer.DeleteSettings(setid);
+                    RefreshAllTables();
+                }, obj => obj != null));
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region Helps
@@ -363,6 +411,7 @@ namespace Schedule_WPF.ModelViews
             this.SendPropertyChanged(nameof(ScheduleThursday));
             this.SendPropertyChanged(nameof(ScheduleFriday));
             this.SendPropertyChanged(nameof(ScheduleSaturday));
+            this.SendPropertyChanged(nameof(AllSettings));
             GetUnAllocatedHours();
             this.SendPropertyChanged(nameof(UnallocatedHours));
         }
