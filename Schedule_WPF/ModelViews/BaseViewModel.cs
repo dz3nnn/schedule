@@ -23,6 +23,15 @@ namespace Schedule_WPF.ModelViews
         #endregion
 
         #region Book
+
+        private string _captionBook;
+        public string CaptionBook
+        {
+            get { return _captionBook; }
+            set { _captionBook = value; this.SendPropertyChanged(nameof(CaptionBook)); }
+        }
+
+
         private BookController _bookLayer;
         protected BookController BookLayer {
             get { return _bookLayer ?? (_bookLayer = new BookController()); }
@@ -96,6 +105,27 @@ namespace Schedule_WPF.ModelViews
         #endregion
 
         #region Schedule
+
+        private IEnumerable<Settings> _unallocatedSchedule;
+        public IEnumerable<Settings> UnallocatedSchedule
+        {
+            get { return _unallocatedSchedule; }
+            set { _unallocatedSchedule = value; this.SendPropertyChanged(nameof(UnallocatedSchedule)); }
+        }
+
+        private Schedule _addingSchedule;
+        public Schedule AddingSchedule
+        {
+            get { return _addingSchedule ?? (_addingSchedule = new Schedule()); }
+            set { _addingSchedule = value; this.SendPropertyChanged(nameof(AddingSchedule)); }
+        }
+
+        private int _unallocatedHours;
+        public int UnallocatedHours
+        {
+            get { return _unallocatedHours; }
+            set { _unallocatedHours = value; this.SendPropertyChanged(nameof(UnallocatedHours)); }
+        }
 
         private ScheduleController _scheduleLayer;
         protected ScheduleController ScheduleLayer
@@ -179,6 +209,7 @@ namespace Schedule_WPF.ModelViews
         #endregion
 
         #region Settings
+
         private SettingsController _settingsLayer;
         protected SettingsController SettingsLayer
         {
@@ -192,6 +223,17 @@ namespace Schedule_WPF.ModelViews
                 IEnumerable<Settings> result;
                 result = SettingsLayer.GetSettingsForGroup(SelectedGroup.Name);
                 return result;
+            }
+        }
+
+        private Settings _addingSettings;
+        public Settings AddingSettings
+        {
+            get { return _addingSettings ?? (_addingSettings = new Settings()); }
+            set
+            {
+                _addingSettings = value;
+                this.SendPropertyChanged(nameof(AddingSettings));
             }
         }
         #endregion
@@ -210,12 +252,8 @@ namespace Schedule_WPF.ModelViews
             }
         }
         #endregion
+
         #region Book
-        private string _captionBook;
-        public string CaptionBook {
-            get { return _captionBook; }
-            set { _captionBook = value; this.SendPropertyChanged(nameof(CaptionBook)); }
-        }
 
         private Command _removeBookCommand;
         public Command RemoveBookCommand {
@@ -256,33 +294,9 @@ namespace Schedule_WPF.ModelViews
             }
         }
 
-
         #endregion
+
         #region Schedule
-
-
-        private Schedule _addingSchedule;
-        public Schedule AddingSchedule
-        {
-            get { return _addingSchedule ?? (_addingSchedule = new Schedule()); }
-            set { _addingSchedule = value; this.SendPropertyChanged(nameof(AddingSchedule)); }
-        }
-
-        private int _unallocatedHours;
-        public int UnallocatedHours
-        {
-            get { return _unallocatedHours; }
-            set { _unallocatedHours = value; this.SendPropertyChanged(nameof(UnallocatedHours)); }
-        }
-
-        
-
-        private IEnumerable<Settings> _unallocatedSchedule;
-        public IEnumerable<Settings> UnallocatedSchedule
-        {
-            get { return _unallocatedSchedule; }
-            set { _unallocatedSchedule = value; this.SendPropertyChanged(nameof(UnallocatedSchedule)); }
-        }
 
         private Command _createSchedule;
         public Command CreateSchedule
@@ -395,17 +409,6 @@ namespace Schedule_WPF.ModelViews
 
         #region Settings
 
-        private Settings _addingSettings;
-        public Settings AddingSettings
-        {
-            get { return _addingSettings; }
-            set
-            {
-                _addingSettings = value;
-                this.SendPropertyChanged(nameof(AddingSettings));
-            }
-        }
-
         private Command _addSettingsCommand;
         public Command AddSettingsCommand
         {
@@ -413,12 +416,26 @@ namespace Schedule_WPF.ModelViews
             {
                 return _addSettingsCommand ?? (_addSettingsCommand = new Command(obj =>
                 {
+                    _addingSettings = new Settings();
                     AddSettingsView addView = new AddSettingsView();
                     addView.DataContext = this;
                     if (addView.ShowDialog() == true)
                     {
+                        SettingsLayer.AddSettings(AddingSettings);
                         this.SendPropertyChanged(nameof(AllSettings));
                     }
+                }));
+            }
+        }
+
+        private Command _addSettingsViewCommand;
+        public Command AddSettingsViewCommand
+        {
+            get
+            {
+                return _addSettingsViewCommand ?? (_addSettingsViewCommand = new Command(obj =>
+                {
+                    SettingsLayer.AddSettings(AddingSettings);
                 }));
             }
         }
@@ -436,7 +453,6 @@ namespace Schedule_WPF.ModelViews
                 }, obj => obj != null));
             }
         }
-
 
         #endregion
 

@@ -28,22 +28,26 @@
         <ComboBox Grid.Row="1" VerticalAlignment="Center" 
               ItemsSource="{Binding Groups, IsAsync=True}"
               DisplayMemberPath ="Name"
-              SelectedValue="{Binding Path=AddingSettings.GroupName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+              SelectedValue="{Binding Path=AddingSettings.GroupName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Name"/>
         <ComboBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" 
               ItemsSource="{Binding Subjects, IsAsync=True}"
-              DisplayMemberPath ="Name"/>
+              DisplayMemberPath ="Name"
+                  SelectedValue="{Binding Path=AddingSettings.Subject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Name"/>
         <ComboBox Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" 
               ItemsSource="{Binding Teachers, IsAsync=True}"
-              DisplayMemberPath ="Name"/>
+              DisplayMemberPath ="Name"
+                  SelectedValue="{Binding Path=AddingSettings.Teacher1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Name"/>
         <ComboBox Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" 
               ItemsSource="{Binding Teachers, IsAsync=True}"
-              DisplayMemberPath ="Name"/>
+              DisplayMemberPath ="Name"
+                  SelectedValue="{Binding Path=AddingSettings.Teacher2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Name"/>
         <ComboBox Grid.Row="1" Grid.Column="4" VerticalAlignment="Center" 
               ItemsSource="{Binding Rooms, IsAsync=True}"
-              DisplayMemberPath ="Name"/>
-        <TextBox Grid.Row="1" Grid.Column="5"/>
-        <TextBox Grid.Row="1" Grid.Column="6"/>
-        <TextBox Grid.Row="1" Grid.Column="7"/>
+              DisplayMemberPath ="Name"
+                  SelectedValue="{Binding Path=AddingSettings.Room, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Name"/>
+        <TextBox Grid.Row="1" Grid.Column="5" Text="{Binding Path=AddingSettings.Hours, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="1" Grid.Column="6" Text="{Binding Path=AddingSettings.HoursAll, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="1" Grid.Column="7" Text="{Binding Path=AddingSettings.HoursDay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <Label Content="Группа:" HorizontalAlignment="Center"/>
         <Label Content="Предмет:" HorizontalAlignment="Center" Grid.Column="1"/>
         <Label Content="Преподаватель 1:" HorizontalAlignment="Center" Grid.Column="2"/>
@@ -52,6 +56,6 @@
         <Label Content="Часы (нед.):" HorizontalAlignment="Center" Grid.Column="5"/>
         <Label Content="Часы (всего):" HorizontalAlignment="Center" Grid.Column="6"/>
         <Label Content="Часы (в день):" HorizontalAlignment="Center" Grid.Column="7"/>
-        <Button Content="Добавить" Grid.Row="3" Grid.Column="7"/>
+        <Button Content="Добавить" Grid.Row="3" Grid.Column="7" Command="{Binding Path=CloseWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
     </Grid>
 </Window>
