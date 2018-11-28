@@ -68,6 +68,9 @@
     <Compile Include="Views\AddScheduleView.xaml.cs">
       <DependentUpon>AddScheduleView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AddSettingsView.xaml.cs">
+      <DependentUpon>AddSettingsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainContainer.xaml.cs">
       <DependentUpon>MainContainer.xaml</DependentUpon>
     </Compile>
@@ -120,6 +123,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddScheduleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

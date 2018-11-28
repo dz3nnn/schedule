@@ -63,6 +63,36 @@ namespace Schedule_WPF.ModelViews
                 return result;
             }
         }
+
+        public IEnumerable<BookItem> Teachers
+        {
+            get
+            {
+                IEnumerable<BookItem> result;
+                result = BookLayer.GetBookItems(BookController.BookTypes.teachers);
+                return result;
+            }
+        }
+
+        public IEnumerable<BookItem> Rooms
+        {
+            get
+            {
+                IEnumerable<BookItem> result;
+                result = BookLayer.GetBookItems(BookController.BookTypes.rooms);
+                return result;
+            }
+        }
+
+        public IEnumerable<BookItem> Subjects
+        {
+            get
+            {
+                IEnumerable<BookItem> result;
+                result = BookLayer.GetBookItems(BookController.BookTypes.subjects);
+                return result;
+            }
+        }
         #endregion
 
         #region Schedule
@@ -144,16 +174,7 @@ namespace Schedule_WPF.ModelViews
             }
         }
 
-        private Settings _addingSettings;
-        public Settings AddingSettings
-        {
-            get { return _addingSettings; }
-            set
-            {
-                _addingSettings = value;
-                this.SendPropertyChanged(nameof(AddingSettings));
-            }
-        }
+        
 
         #endregion
 
@@ -373,6 +394,18 @@ namespace Schedule_WPF.ModelViews
         #endregion
 
         #region Settings
+
+        private Settings _addingSettings;
+        public Settings AddingSettings
+        {
+            get { return _addingSettings; }
+            set
+            {
+                _addingSettings = value;
+                this.SendPropertyChanged(nameof(AddingSettings));
+            }
+        }
+
         private Command _addSettingsCommand;
         public Command AddSettingsCommand
         {
@@ -380,7 +413,12 @@ namespace Schedule_WPF.ModelViews
             {
                 return _addSettingsCommand ?? (_addSettingsCommand = new Command(obj =>
                 {
-                    // добавление по окну
+                    AddSettingsView addView = new AddSettingsView();
+                    addView.DataContext = this;
+                    if (addView.ShowDialog() == true)
+                    {
+                        this.SendPropertyChanged(nameof(AllSettings));
+                    }
                 }));
             }
         }
@@ -398,6 +436,7 @@ namespace Schedule_WPF.ModelViews
                 }, obj => obj != null));
             }
         }
+
 
         #endregion
 
