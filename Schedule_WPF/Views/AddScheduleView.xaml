@@ -1,0 +1,44 @@
+﻿<Window x:Class="Schedule_WPF.Views.AddScheduleView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Schedule_WPF.Views"
+        mc:Ignorable="d"
+        Title="Редактирование расписания" Height="450" Width="800">
+    <Grid Background="{DynamicResource MainBackBrush}">
+        <ListView ItemsSource="{Binding Path = UnallocatedSchedule, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=AddingSettings, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <ListView.InputBindings>
+                <KeyBinding Key="Enter" Command="{Binding Path=EnterAddingKeyCommand}" CommandParameter="{Binding RelativeSource={StaticResource WindowParent}, Path=.}"/>
+            </ListView.InputBindings>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn>
+                        <GridViewColumnHeader>
+                            <DataTemplate>
+                                <TextBlock Text="Предмет" MinWidth="100"/>
+                            </DataTemplate>
+                        </GridViewColumnHeader>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path = Subject}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn>
+                        <GridViewColumnHeader>
+                            <DataTemplate>
+                                <TextBlock Text="Часы" MinWidth="100"/>
+                            </DataTemplate>
+                        </GridViewColumnHeader>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path = Hours}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>
