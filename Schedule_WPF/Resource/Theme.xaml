@@ -8,28 +8,32 @@
 
     <SolidColorBrush x:Key="ForegroundBrush" Color="White" />
 
-    <Style TargetType="{x:Type Border}">
+    <!--Border style-->
+    <Style TargetType="{x:Type Border}" x:Key="BackBorder">
         <Setter Property="Background" Value="{DynamicResource BackgoundBrush}" />
     </Style>
-
+    
     <Style TargetType="{x:Type Border}" x:Key="SelectedBorder">
         <Setter Property="Background" Value="{DynamicResource SelectedBrush}" />
     </Style>
 
+    <!--TextBlock style-->
     <Style TargetType="{x:Type TextBlock}">
         <Setter Property="Foreground" Value="White" />
     </Style>
 
+    <!--Button style-->
     <Style TargetType="{x:Type Button}">
         <Setter Property="Margin" Value="5" />
+        <Setter Property="Padding" Value="5" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid>
-                        <Border Name="Back" />
+                        <Border Name="Back" Style="{StaticResource BackBorder}" />
                         <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
                         <Border Name="MouseOver" Style="{StaticResource SelectedBorder}" Opacity="0" >
-                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="{TemplateBinding Padding}" />
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -55,14 +59,14 @@
         </Setter>
     </Style>
 
-    
+    <!--ComboBox style-->    
     <Style x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
         <Setter Property="Background" Value="{StaticResource BackgoundBrush}" />
         <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
-                    <Border BorderThickness="0, 0, 0, 2">
+                    <Border BorderThickness="0, 0, 0, 2" Style="{StaticResource BackBorder}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
@@ -194,8 +198,89 @@
     </Style>
 
 
+    <!--ItemsContainer style-->
+    <ControlTemplate x:Key="LoadingDataTemplate" TargetType="{x:Type ListBox}">
+        <Grid>
+            <Ellipse Name="El1" Width="20" Height="20" Fill="{DynamicResource SelectedBrush}" Margin="-50, -20, 0, 0" Opacity="0" />
+            <Ellipse Name="El2" Width="20" Height="20" Fill="{DynamicResource SelectedBrush}" Margin="0, 0, 0, 0" Opacity="0" />
+            <Ellipse Name="El3" Width="20" Height="20" Fill="{DynamicResource SelectedBrush}" Margin="50, 20, 0, 0" Opacity="0" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetName="El1" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.6" RepeatBehavior="Forever" />
+                        <DoubleAnimation BeginTime="0:0:0.2" Storyboard.TargetName="El2" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.6" RepeatBehavior="Forever" />
+                        <DoubleAnimation BeginTime="0:0:0.4" Storyboard.TargetName="El3" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.6" RepeatBehavior="Forever" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
     <Style TargetType="{x:Type ListView}">
         <Setter Property="Background" Value="{x:Null}" />
         <Setter Property="Margin" Value="10" />
+        <Style.Triggers>
+            <Trigger Property="ItemsSource" Value="{x:Null}">
+                <Setter Property="Template" Value="{StaticResource LoadingDataTemplate}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type ListBox}">
+        <Setter Property="Padding" Value="0" />
+        <Style.Triggers>
+            <Trigger Property="ItemsSource" Value="{x:Null}">
+                <Setter Property="Template" Value="{StaticResource LoadingDataTemplate}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style TargetType="{x:Type ListBoxItem}">
+        <Setter Property="BorderBrush" Value="{StaticResource SelectedBrush}" />
+        <Setter Property="BorderThickness" Value="0, 0, 0, 2" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Border Style="{x:Null}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="true">
+                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="Background" Value="Gray" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type ListViewItem}">
+        <Setter Property="BorderBrush" Value="{StaticResource SelectedBrush}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                    <Border BorderBrush="{DynamicResource BackgoundBrush}"
+                                                BorderThickness="1"
+                                                Background="{TemplateBinding Background}">
+                        <GridViewRowPresenter HorizontalAlignment="Stretch" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="Auto" Margin="0" Content="{TemplateBinding Content}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource SelectedBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="true">
+                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="Background" Value="Gray" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

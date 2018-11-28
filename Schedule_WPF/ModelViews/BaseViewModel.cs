@@ -86,6 +86,7 @@ namespace Schedule_WPF.ModelViews
         {
             get
             {
+                //System.Threading.Thread.Sleep(5000); // если хочешь посмотреть как работает анимация
                 IEnumerable<Schedule> result;
                 result = ScheduleLayer.GetScheduleForGroupByDay(SelectedGroup.Name,1);
                 result = FillEmpty(result,1);

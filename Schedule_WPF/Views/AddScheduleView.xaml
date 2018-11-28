@@ -14,11 +14,11 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn>
-                        <GridViewColumnHeader>
+                        <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
-                                <TextBlock Text="Предмет" MinWidth="100"/>
+                                <TextBlock Text="Предмет" MinWidth="100" Foreground="Black" Padding="3" />
                             </DataTemplate>
-                        </GridViewColumnHeader>
+                        </GridViewColumn.HeaderTemplate>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Path = Subject}" />
@@ -26,11 +26,11 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn>
-                        <GridViewColumnHeader>
+                        <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
-                                <TextBlock Text="Часы" MinWidth="100"/>
+                                <TextBlock Text="Часы" MinWidth="100" Foreground="Black" Padding="3" />
                             </DataTemplate>
-                        </GridViewColumnHeader>
+                        </GridViewColumn.HeaderTemplate>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Path = Hours}" />

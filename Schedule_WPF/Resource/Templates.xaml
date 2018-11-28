@@ -104,27 +104,27 @@
                     </ListView.InputBindings>
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn>
-                                <GridViewColumnHeader>
+                            <GridViewColumn >
+                                <GridViewColumn.HeaderTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="Предмет" MinWidth="100"/>
+                                        <TextBlock Text="Предмет" MinWidth="100" Foreground="Black" Padding="3" />
                                     </DataTemplate>
-                                </GridViewColumnHeader>
+                                </GridViewColumn.HeaderTemplate>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Path = Subject}" />
+                                        <TextBlock Text="{Binding Path=Subject}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn>
-                                <GridViewColumnHeader>
+                                <GridViewColumn.HeaderTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="Аудитория" MinWidth="100"/>
+                                        <TextBlock Text="Аудитория" MinWidth="100" Foreground="Black" Padding="3"  />
                                     </DataTemplate>
-                                </GridViewColumnHeader>
+                                </GridViewColumn.HeaderTemplate>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Path= Room}"/>
+                                        <TextBlock Text="{Binding Path=Room}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -139,17 +139,27 @@
                     </ListView.InputBindings>
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Предмет">
+                            <GridViewColumn >
+                                <GridViewColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="Предмет" MinWidth="100" Foreground="Black" Padding="3" />
+                                    </DataTemplate>
+                                </GridViewColumn.HeaderTemplate>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Path=Subject}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Аудитория">
+                            <GridViewColumn>
+                                <GridViewColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="Аудитория" MinWidth="100" Foreground="Black" Padding="3"  />
+                                    </DataTemplate>
+                                </GridViewColumn.HeaderTemplate>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Path=Room}" />
+                                        <TextBlock Text="{Binding Path=Room}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -164,17 +174,27 @@
                     </ListView.InputBindings>
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Предмет">
+                            <GridViewColumn >
+                                <GridViewColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="Предмет" MinWidth="100" Foreground="Black" Padding="3" />
+                                    </DataTemplate>
+                                </GridViewColumn.HeaderTemplate>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Path=Subject}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Аудитория">
+                            <GridViewColumn>
+                                <GridViewColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="Аудитория" MinWidth="100" Foreground="Black" Padding="3"  />
+                                    </DataTemplate>
+                                </GridViewColumn.HeaderTemplate>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Path=Room}" />
+                                        <TextBlock Text="{Binding Path=Room}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -189,17 +209,27 @@
                     </ListView.InputBindings>
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Предмет">
+                            <GridViewColumn >
+                                <GridViewColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="Предмет" MinWidth="100" Foreground="Black" Padding="3" />
+                                    </DataTemplate>
+                                </GridViewColumn.HeaderTemplate>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Path=Subject}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Аудитория">
+                            <GridViewColumn>
+                                <GridViewColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="Аудитория" MinWidth="100" Foreground="Black" Padding="3"  />
+                                    </DataTemplate>
+                                </GridViewColumn.HeaderTemplate>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Path=Room}" />
+                                        <TextBlock Text="{Binding Path=Room}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -214,17 +244,27 @@
                     </ListView.InputBindings>
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Предмет">
+                            <GridViewColumn >
+                                <GridViewColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="Предмет" MinWidth="100" Foreground="Black" Padding="3" />
+                                    </DataTemplate>
+                                </GridViewColumn.HeaderTemplate>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Path=Subject}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Аудитория">
+                            <GridViewColumn>
+                                <GridViewColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="Аудитория" MinWidth="100" Foreground="Black" Padding="3"  />
+                                    </DataTemplate>
+                                </GridViewColumn.HeaderTemplate>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Path=Room}" />
+                                        <TextBlock Text="{Binding Path=Room}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -239,17 +279,27 @@
                     </ListView.InputBindings>
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Предмет">
+                            <GridViewColumn >
+                                <GridViewColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="Предмет" MinWidth="100" Foreground="Black" Padding="3" />
+                                    </DataTemplate>
+                                </GridViewColumn.HeaderTemplate>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Path=Subject}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Аудитория">
+                            <GridViewColumn>
+                                <GridViewColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="Аудитория" MinWidth="100" Foreground="Black" Padding="3"  />
+                                    </DataTemplate>
+                                </GridViewColumn.HeaderTemplate>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Path=Room}" />
+                                        <TextBlock Text="{Binding Path=Room}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -288,11 +338,11 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn>
-                            <GridViewColumnHeader>
+                            <GridViewColumn.HeaderTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="Предмет" MinWidth="100"/>
+                                    <TextBlock Text="Предмет" MinWidth="100" Foreground="Black" Padding="3" />
                                 </DataTemplate>
-                            </GridViewColumnHeader>
+                            </GridViewColumn.HeaderTemplate>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Path = Subject}" />
@@ -301,11 +351,11 @@
                         </GridViewColumn>
 
                         <GridViewColumn>
-                            <GridViewColumnHeader>
+                            <GridViewColumn.HeaderTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="Преподаватель 1" MinWidth="100"/>
+                                    <TextBlock Text="Преподаватель 1" MinWidth="100" Foreground="Black" Padding="3" />
                                 </DataTemplate>
-                            </GridViewColumnHeader>
+                            </GridViewColumn.HeaderTemplate>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Path = Teacher1}" />
@@ -314,11 +364,11 @@
                         </GridViewColumn>
 
                         <GridViewColumn>
-                            <GridViewColumnHeader>
+                            <GridViewColumn.HeaderTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="Преподаватель 2" MinWidth="100"/>
+                                    <TextBlock Text="Преподаватель 2" MinWidth="100" Foreground="Black" Padding="3" />
                                 </DataTemplate>
-                            </GridViewColumnHeader>
+                            </GridViewColumn.HeaderTemplate>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Path = Teacher2}" />
@@ -327,11 +377,11 @@
                         </GridViewColumn>
 
                         <GridViewColumn>
-                            <GridViewColumnHeader>
+                            <GridViewColumn.HeaderTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="Аудитория" MinWidth="100"/>
+                                    <TextBlock Text="Аудитория" MinWidth="100" Foreground="Black" Padding="3" />
                                 </DataTemplate>
-                            </GridViewColumnHeader>
+                            </GridViewColumn.HeaderTemplate>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Path = Room}" />
@@ -340,11 +390,11 @@
                         </GridViewColumn>
 
                         <GridViewColumn>
-                            <GridViewColumnHeader>
+                            <GridViewColumn.HeaderTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="Часы (нед.)" MinWidth="100"/>
+                                    <TextBlock Text="Часы (нед.)" MinWidth="100" Foreground="Black" Padding="3" />
                                 </DataTemplate>
-                            </GridViewColumnHeader>
+                            </GridViewColumn.HeaderTemplate>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Path = Hours}" />
@@ -353,11 +403,11 @@
                         </GridViewColumn>
 
                         <GridViewColumn>
-                            <GridViewColumnHeader>
+                            <GridViewColumn.HeaderTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="Часы (всего)" MinWidth="100"/>
+                                    <TextBlock Text="Часы (всего)" MinWidth="100" Foreground="Black" Padding="3" />
                                 </DataTemplate>
-                            </GridViewColumnHeader>
+                            </GridViewColumn.HeaderTemplate>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Path = HoursAll}" />
@@ -366,11 +416,11 @@
                         </GridViewColumn>
 
                         <GridViewColumn>
-                            <GridViewColumnHeader>
+                            <GridViewColumn.HeaderTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="Часы (в день)" MinWidth="100"/>
+                                    <TextBlock Text="Часы (в день)" MinWidth="100" Foreground="Black" Padding="3" />
                                 </DataTemplate>
-                            </GridViewColumnHeader>
+                            </GridViewColumn.HeaderTemplate>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Path = HoursDay}" />
