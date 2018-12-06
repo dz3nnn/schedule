@@ -25,10 +25,10 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Content="Справочники" Command="{Binding Path=SelectionPageCommand}" CommandParameter="1" />
-            <Button Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" Content="Расписание" Command="{Binding Path=SelectionPageCommand}" CommandParameter="2"  />
-            <Button Grid.Row="2" Grid.Column="2" Content="Настройки" Command="{Binding Path=SelectionPageCommand}" CommandParameter="3"  />
-            <Button Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Content="Замены" Command="{Binding Path=SelectionPageCommand}" />
+            <Button Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Content="Справочники" Command="{Binding Path=SelectionPageCommand}" CommandParameter="1"/>
+            <Button Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" Content="Расписание" Command="{Binding Path=SelectionPageCommand}" CommandParameter="2"/>
+            <Button Grid.Row="2" Grid.Column="2" Content="Настройки" Command="{Binding Path=SelectionPageCommand}" CommandParameter="3"/>
+            <Button Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Content="Замены" Command="{Binding Path=SelectionPageCommand}" CommandParameter="4"/>
             <Button Grid.Row="1" Grid.Column="3" Content="Вычитка" Command="{Binding Path=SelectionPageCommand}" />
             <Button Grid.Row="2" Grid.Column="3" Content="Нагрузка" Command="{Binding Path=SelectionPageCommand}" />
         </Grid>
@@ -311,8 +311,37 @@
     </DataTemplate>
 
     <DataTemplate x:Key="ChangeScheduleTemplate">
-        <Grid Background="Green">
-            <Button Content="&lt;" Command="{Binding Path=SelectionPageCommand}" CommandParameter="0" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" />
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <Button Content="&lt;" Command="{Binding Path=SelectionPageCommand}" CommandParameter="0" Width="50" Height="50" HorizontalAlignment="Left" Margin="0" />
+                <DatePicker Width="100" Height="30" Margin="10"/>
+            </StackPanel>
+            <ListView Grid.Row="1" ItemsSource="{Binding Groups, IsAsync=True}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn >
+                            <GridViewColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="Группа" MinWidth="100" Foreground="Black" Padding="3" />
+                                </DataTemplate>
+                            </GridViewColumn.HeaderTemplate>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Name}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </Grid>
     </DataTemplate>
 
@@ -432,7 +461,4 @@
             </ListView>
         </Grid>
     </DataTemplate>
-    
-    
-    
 </ResourceDictionary>

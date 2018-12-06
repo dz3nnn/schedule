@@ -14,6 +14,7 @@ namespace Schedule_WPF.ModelViews
     public class BaseViewModel: ViewModel
     {
         #region Members
+
         #region Menu
         private MenuItemType _currentMenuItemType = MenuItemType.MainMenu;
         public MenuItemType CurrentMenuItemType {
@@ -40,7 +41,7 @@ namespace Schedule_WPF.ModelViews
         public IEnumerable<TwoValues<string, int>> BookTypes {
             get {
                 return new TwoValues<string, int>[] {
-                    new TwoValues<string, int> { Item1 = "Учителя", Item2 = 0 },
+                    new TwoValues<string, int> { Item1 = "Преподаватели", Item2 = 0 },
                     new TwoValues<string, int> { Item1 = "Предметы", Item2 = 1 },
                     new TwoValues<string, int> { Item1 = "Аудитории", Item2 = 2 },
                     new TwoValues<string, int> { Item1 = "Группы", Item2 = 3 }
@@ -237,9 +238,11 @@ namespace Schedule_WPF.ModelViews
             }
         }
         #endregion
+
         #endregion
 
         #region Commands
+
         #region Menu
         private Command _selectionPageCommand;
         public Command SelectionPageCommand {
