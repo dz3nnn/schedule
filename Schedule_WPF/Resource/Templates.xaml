@@ -322,7 +322,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <Button Content="&lt;" Command="{Binding Path=SelectionPageCommand}" CommandParameter="0" Width="50" Height="50" HorizontalAlignment="Left" Margin="0" />
-                <DatePicker Width="100" Height="30" Margin="10"/>
+                <DatePicker Width="100" Height="30" Margin="10" Foreground="Green"/>
             </StackPanel>
             <ListView Grid.Row="1" ItemsSource="{Binding Groups, IsAsync=True}">
                 <ListView.View>

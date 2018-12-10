@@ -18,9 +18,10 @@
     </Style>
 
     <!--TextBlock style-->
-    <Style TargetType="{x:Type TextBlock}">
+    
+    <!--<Style TargetType="{x:Type TextBlock}">
         <Setter Property="Foreground" Value="White" />
-    </Style>
+    </Style>-->
 
     <!--Button style-->
     <Style TargetType="{x:Type Button}">
