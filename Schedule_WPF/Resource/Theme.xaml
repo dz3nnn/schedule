@@ -12,19 +12,14 @@
     <Style TargetType="{x:Type Border}" x:Key="BackBorder">
         <Setter Property="Background" Value="{DynamicResource BackgoundBrush}" />
     </Style>
-    
+
     <Style TargetType="{x:Type Border}" x:Key="SelectedBorder">
         <Setter Property="Background" Value="{DynamicResource SelectedBrush}" />
     </Style>
 
-    <!--TextBlock style-->
-    
-    <!--<Style TargetType="{x:Type TextBlock}">
-        <Setter Property="Foreground" Value="White" />
-    </Style>-->
-
     <!--Button style-->
     <Style TargetType="{x:Type Button}">
+        <Setter Property="TextElement.Foreground" Value="White" />
         <Setter Property="Margin" Value="5" />
         <Setter Property="Padding" Value="5" />
         <Setter Property="Template">
@@ -62,6 +57,7 @@
 
     <!--ComboBox style-->    
     <Style x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
+        <Setter Property="TextElement.Foreground" Value="White" />
         <Setter Property="Background" Value="{StaticResource BackgoundBrush}" />
         <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
         <Setter Property="Template">
@@ -88,6 +84,7 @@
     </ControlTemplate>
 
     <Style TargetType="ComboBox">
+        <Setter Property="TextElement.Foreground" Value="White" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
         <Setter Property="BorderBrush" Value="{StaticResource SelectedBrush}" />
         <Setter Property="Background" Value="{StaticResource BackgoundBrush}" />
@@ -191,6 +188,7 @@
     </Style>
 
     <Style TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="TextElement.Foreground" Value="White" />
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Background" Value="{DynamicResource SelectedBrush}" />
@@ -220,6 +218,7 @@
     </ControlTemplate>
 
     <Style TargetType="{x:Type ListView}">
+        <Setter Property="TextElement.Foreground" Value="White" />
         <Setter Property="Background" Value="{x:Null}" />
         <Setter Property="Margin" Value="10" />
         <Style.Triggers>
