@@ -42,7 +42,7 @@ namespace MainLibrary
             }
             catch(Exception ex)
             {
-                Log.WriteLog(ex.Message); //check123
+                Log.WriteLog(ex.Message);
             }
             return null;
         }
