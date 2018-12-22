@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\MainLibrary"
+    "\\MainLibrary",
+    "\\Schedule_WPF"
   ],
-  "SelectedNode": "\\Schedule_WF.sln",
+  "SelectedNode": "\\MainLibrary\\BookController.cs",
   "PreviewInSolutionExplorer": false
 }
