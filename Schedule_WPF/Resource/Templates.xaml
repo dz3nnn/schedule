@@ -322,12 +322,12 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <Button Content="&lt;" Command="{Binding Path=SelectionPageCommand}" CommandParameter="0" Width="50" Height="50" HorizontalAlignment="Left" Margin="0" />
-                <DatePicker Width="100" Height="30" Margin="10" Foreground="Green"/>
+                <DatePicker Width="100" Height="30" Margin="10" SelectedDate="{Binding Path=DateChange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
-            <ListView Grid.Row="1" ItemsSource="{Binding Groups, IsAsync=True}">
+            <ListView Grid.Row="1" ItemsSource="{Binding Groups, IsAsync=True}" SelectedItem="{Binding SelectedGroupForChange, IsAsync=True}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn >
+                        <GridViewColumn>
                             <GridViewColumn.HeaderTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="Группа" MinWidth="100" Foreground="Black" Padding="3" />
@@ -335,7 +335,37 @@
                             </GridViewColumn.HeaderTemplate>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Path=Name}" />
+                                    <TextBlock Text="{Binding Path=Name}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding ScheduleWithChanges, IsAsync=True}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn >
+                            <GridViewColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="Предмет" MinWidth="100" Foreground="Black" Padding="3" />
+                                </DataTemplate>
+                            </GridViewColumn.HeaderTemplate>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Subject}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <GridViewColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="Аудитория" MinWidth="100" Foreground="Black" Padding="3"  />
+                                </DataTemplate>
+                            </GridViewColumn.HeaderTemplate>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Room}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -359,6 +389,7 @@
               DisplayMemberPath ="Name"
               SelectedValue="{Binding Path=SelectedGroup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <Button Content="Добавить" Width="120" Command="{Binding AddSettingsCommand}"/>
+                <Button Content="Семестры" Width="120" Command="{Binding AddSemesterCommand}"/>
             </StackPanel>
             <ListView Grid.Row="1" ItemsSource="{Binding Path = AllSettings, UpdateSourceTrigger=PropertyChanged, IsAsync=True}">
                 <ListView.InputBindings>

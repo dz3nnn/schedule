@@ -30,3 +30,15 @@
 *.exe
 *.out
 *.app
+/.vs/schedule/v15/.suo
+/.vscode
+/.vs/ProjectSettings.json
+/Schedule_WF/obj
+/Models/bin/Debug
+/Models/obj
+/Schedule_WPF/bin/Debug
+/Schedule_WPF/obj
+/MainLibrary/bin/Debug
+/MainLibrary/obj
+/.vs/Schedule_WF/v15/Server/sqlite3/db.lock
+/.vs/Schedule_WF

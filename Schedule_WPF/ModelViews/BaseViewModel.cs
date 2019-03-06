@@ -239,6 +239,75 @@ namespace Schedule_WPF.ModelViews
         }
         #endregion
 
+        #region Semester
+
+        private SemesterController _semesterLayer;
+        protected SemesterController SemesterLayer
+        {
+            get { return _semesterLayer ?? (_semesterLayer = new SemesterController()); }
+        }
+
+        private Semester _addingSemester;
+        public Semester AddingSemester
+        {
+            get { return _addingSemester ?? (_addingSemester = new Semester()); }
+            set
+            {
+                _addingSemester = value;
+                this.SendPropertyChanged(nameof(AddingSemester));
+            }
+        }
+
+        public IEnumerable<Semester> AllSemesters
+        {
+            get
+            {
+                IEnumerable<Semester> result;
+                result = SemesterLayer.GetAllSemesters();
+                return result;
+            }
+        }
+
+        #endregion
+
+        #region Changes
+
+        private DateTime _dateChange;
+        public DateTime DateChange
+        {
+            get { if (_dateChange == DateTime.MinValue)
+                    _dateChange = DateTime.Now;
+                return _dateChange;
+            }
+            set { _dateChange = value; this.SendPropertyChanged(nameof(DateChange)); this.SendPropertyChanged(nameof(ScheduleWithChanges)); }
+        }
+
+        private BookItem _selectedGroupForChange = new BookItem();
+        public BookItem SelectedGroupForChange
+        {
+            get { return _selectedGroupForChange; }
+            set
+            {
+                _selectedGroupForChange = value;
+                this.SendPropertyChanged(nameof(SelectedGroupForChange));
+                this.SendPropertyChanged(nameof(ScheduleWithChanges));
+            }
+        }
+
+        public IEnumerable<Schedule> ScheduleWithChanges
+        {
+            get
+            {
+                IEnumerable<Schedule> result;
+                result = ScheduleLayer.GetScheduleForGroupByDay(SelectedGroupForChange.Name, (int)DateChange.DayOfWeek);
+
+                result = FillEmpty(result, (int)DateChange.DayOfWeek);
+                return result;
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region Commands
@@ -454,6 +523,29 @@ namespace Schedule_WPF.ModelViews
                     SettingsLayer.DeleteSettings(setid);
                     RefreshAllTables();
                 }, obj => obj != null));
+            }
+        }
+
+        #endregion
+
+        #region Semester
+
+        private Command _addSemesterCommand;
+        public Command AddSemesterCommand
+        {
+            get
+            {
+                return _addSemesterCommand ?? (_addSemesterCommand = new Command(obj =>
+                {
+                    _addingSemester = new Semester { DateStartFirst = DateTime.Now, DateStartSecond = DateTime.Now, DateStopFirst = DateTime.Now, DateStopSecond = DateTime.Now };
+                    AddSemesterView addView = new AddSemesterView();
+                    addView.DataContext = this;
+                    if (addView.ShowDialog() == true)
+                    {
+                        SemesterLayer.AddSemester(AddingSemester);
+                        this.SendPropertyChanged(nameof(AddingSemester));
+                    }
+                }));
             }
         }
 
